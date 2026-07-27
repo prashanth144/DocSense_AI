@@ -1,9 +1,10 @@
 from langchain_community.vectorstores import Chroma
+from dotenv import load_dotenv
+load_dotenv()
 
-
-def vector_Storage(documents, model):
-    vector = Chroma.from_documents(
-        documents=documents,
-        embedding=model,
+def get_vectorspace(chunking,embedding):
+    database=Chroma.from_documents(
+        documents=chunking,
+        embedding=embedding
     )
-    return vector
+    return database

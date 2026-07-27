@@ -1,14 +1,15 @@
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import chroma
 
-def retrievers(vector):
+def get_retrievers(vector):
     retriver=vector.as_retriever(
         search_type="mmr",
         search_kwargs={
             "k":4,
-            "fetch_k":10,
+            "fetch_k":1000,
             "lambda_mult":0.5
         }
     )
-
     return retriver
 
+    
+    

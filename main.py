@@ -1,54 +1,48 @@
-
 from dotenv import load_dotenv
-from input_handler import get_filepath
-from loader_factory import get_loader
-from text_splitter import splitters
-from embedding import embedding_model
-from vector_database import vector_Storage
-from retriever import retrievers
-from langchain_groq import ChatGroq
-from prompt_template import creating_template
 
+import retriever
 load_dotenv()
-file_path = get_filepath()
-loader = get_loader(file_path)
-documents = loader.load()
-chunk=splitters(documents)
-embedding=embedding_model()
-vector=vector_Storage(chunk, embedding)
-retrive=retrievers(vector)
-prompt=creating_template()
-
-llm = ChatGroq(model="openai/gpt-oss-120b", api_key="")
-
-text=input("enter your query")
-
-retrive_docs=retrive.invoke(text)
-
-context=""
-
-for i in retrive_docs:
-    context+=i.page_content+"\n\n"
+from input_handler import input_path
+from loader_factory import input_loader
+from text_splitter import get_textsplitter
+from embedding import get_embeddings
+from vector_database import get_vectorspace
+from retriever import get_retrievers
+from prompt_template import get_prompt
+from model import get_model
 
 
-while(True):
-    message=prompt.invoke({
-    "context":context,
-    "question":text
-})
-response=llm.invoke(message)
+path=input_path()
+loaders=input_loader(path)
+documents=loaders.load()
+chunking=get_textsplitter(documents)
+embedding=get_embeddings()
+vectors=get_vectorspace(chunking,embedding)
+retriver=get_retrievers(vectors)
+llm_model=get_model()
+prompt=get_prompt()
 
-print(response.content)
+# Chat Loop
+while True:
 
-    
+    text = input("Enter your query: ")
 
+    if text.lower() == "exit":
+        print("Goodbye!")
+        break
 
+    docs = retriver.invoke(text)
 
+    context = ""
 
+    for i in docs:
+        context += i.page_content + "\n\n"
 
+    message = prompt.invoke({
+        "context": context,
+        "question": text
+    })
 
-
-
-
- 
+    response = llm_model.invoke(message)
+    print(response.content)
 

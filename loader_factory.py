@@ -1,18 +1,23 @@
-from langchain_community.document_loaders import (
+from langchain_community.document_loaders import(
     PyPDFLoader,
     TextLoader,
-    UnstructuredWordDocumentLoader,
+    UnstructuredFileLoader
 )
 
+def input_loader(file_name):
+    suffix = file_name.suffix.lower()
 
-def get_loader(file_path):
-    file_extension = file_path.suffix.lower()
-
-    if file_extension == ".pdf":
-        return PyPDFLoader(file_path)
-    elif file_extension == ".docx":
-        return UnstructuredWordDocumentLoader(file_path)
-    elif file_extension == ".txt":
-        return TextLoader(str(file_path))
+    if suffix == ".txt":
+        return TextLoader(file_name)
+    elif suffix == ".pdf":
+        return PyPDFLoader(file_name)
+    elif suffix == ".docx":
+        return UnstructuredFileLoader(file_name)
     else:
-        raise ValueError(f"Unsupported file type: {file_extension}")
+        raise ValueError(f"Unsupported file type: {suffix}")
+
+
+
+
+
+
