@@ -1,2 +1,2 @@
-# KnowledgeHub_AI
+# DocScense_AI
 Multi-Document AI Knowledge Assistant with source citations, chat history, and document comparison.
