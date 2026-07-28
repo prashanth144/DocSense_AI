@@ -1,57 +1,257 @@
-# DocScense_AI
+# DocSense_AI
 
-A Python-based multi-document AI knowledge assistant that ingests PDFs/TXT/DOCX, splits and embeds their text, stores embeddings in a Chroma vector store, and answers user queries with source-aware context (chat-style Q&A with document citations). Built for exploratory question answering over collections of documents — useful for knowledge-base search, research assistants, and document comparison.
+A lightweight Python-based Retrieval-Augmented Generation (RAG) application that ingests PDF, DOCX, and TXT documents, generates semantic embeddings using Hugging Face Sentence Transformers, stores them in a Chroma Vector Database, and enables context-aware question answering with source citations.
 
-Built a Python document-QA assistant using LangChain, HuggingFace sentence-transformers, and Chroma to ingest, chunk, embed, and retrieve multi-document context for LLM-backed question answering with source citations.
+---
 
-**Stack**
-Language: Python 
+## Overview
 
-Framework : LangChain 
+The Multi-Document AI Knowledge Assistant is designed to provide intelligent question answering over multiple documents using a Retrieval-Augmented Generation (RAG) pipeline. Instead of relying solely on the knowledge of a language model, the application retrieves relevant information from uploaded documents and uses that context to generate accurate and grounded responses.
 
-Libraries:  langchain
-            langchain-huggingface
-            sentence-transformers
-            langchain-chroma
-            pypdf ,python-docx
-            python-dotenv
+The project demonstrates the complete lifecycle of a RAG application, including document ingestion, text preprocessing, embedding generation, vector storage, semantic retrieval, prompt construction, and LLM integration.
 
-**How it's organized**
+---
 
-**Code**
+## Features
 
-README.md                project summary
-requirements.txt         Python dependencies
-main.py                  orchestrates ingestion → embedding → retrieval → LLM answering (CLI loop)
-input_handler.py         reads user-provided file path
-loader_factory.py        selects a document loader (PDF / TXT / DOCX) using langchain_community loaders
-text_splitter.py         chunks documents (RecursiveCharacterTextSplitter)
-embedding.py             creates HuggingFaceEmbeddings (sentence-transformers/all-MiniLM-L6-v2)
-vector_database.py       builds a Chroma vectorstore from chunks + embeddings
-retriever.py             (retrieval logic — returns relevant document chunks)
-prompt_template.py       (builds the prompt using retrieved context and question)
-model.py                 (wraps / invokes the LLM to generate answers)
-tests/                   test directory (empty / placeholder)
-PLANNING AREA.pdf        project plan / documentation asset
-text.txt                 example or test text
+- Supports multiple document formats (PDF, DOCX, TXT)
+- Automatic document loading and preprocessing
+- Semantic text chunking using Recursive Character Text Splitter
+- Embedding generation using Hugging Face Sentence Transformers
+- Chroma Vector Database integration
+- Retrieval-Augmented Generation (RAG)
+- Context-aware question answering
+- Source-aware responses
+- Modular architecture
+- Easily extendable with different LLMs and vector databases
 
+---
 
-main.py is the entry point: it asks for a path, uses loader_factory to load documents, text_splitter to chunk them, embedding.py to compute embeddings, vector_database.py to create a Chroma vector store, and retriever to fetch relevant chunks for a query. prompt_template builds the context+question prompt, and model.py sends it to an LLM to produce an answer which is printed to the console.
+## Resume Description
 
-**How to run it**
+Built a modular Retrieval-Augmented Generation (RAG) assistant using Python, LangChain, Hugging Face Sentence Transformers, and ChromaDB to ingest PDFs, DOCX, and TXT documents, perform semantic retrieval, and generate context-aware answers with document citations.
 
-Create and activate a virtual env (recommended).
-Install dependencies and run main.py.
+---
 
-**Example commands:**
+## Technology Stack
 
-**Code**
+| Category | Technology |
+|----------|------------|
+| Language | Python |
+| Framework | LangChain |
+| Embedding Model | sentence-transformers/all-MiniLM-L6-v2 |
+| Vector Database | ChromaDB |
+| Document Processing | PyPDF, Python-Docx |
+| Environment Management | python-dotenv |
+| LLM | Configurable (Groq/OpenAI/Ollama/Hugging Face) |
+
+---
+
+## Project Structure
+
+```text
+Multi-Document-AI-Knowledge-Assistant/
+│
+├── README.md
+├── requirements.txt
+├── main.py
+│
+├── input_handler.py
+├── loader_factory.py
+├── text_splitter.py
+├── embedding.py
+├── vector_database.py
+├── retriever.py
+├── prompt_template.py
+├── model.py
+│
+├── tests/
+│
+├── PLANNING AREA.pdf
+└── text.txt
+```
+
+---
+
+## Module Description
+
+| Module | Responsibility |
+|---------|----------------|
+| main.py | Controls the complete RAG pipeline from document ingestion to answer generation |
+| input_handler.py | Accepts the document path from the user |
+| loader_factory.py | Loads PDF, DOCX, and TXT documents |
+| text_splitter.py | Splits documents into semantic chunks |
+| embedding.py | Generates vector embeddings |
+| vector_database.py | Creates and stores the Chroma vector database |
+| retriever.py | Retrieves the most relevant document chunks |
+| prompt_template.py | Builds the prompt using retrieved context and the user's question |
+| model.py | Sends the prompt to the configured language model |
+
+---
+
+## System Architecture
+
+```text
+User Documents
+(PDF / DOCX / TXT)
+        │
+        ▼
+Document Loader
+        │
+        ▼
+Text Splitter
+        │
+        ▼
+Embedding Model
+        │
+        ▼
+Chroma Vector Database
+        │
+        ▼
+Retriever
+        │
+        ▼
+Prompt Builder
+        │
+        ▼
+Large Language Model
+        │
+        ▼
+Answer with Source Citations
+```
+
+---
+
+## Workflow
+
+1. The user provides one or more PDF, DOCX, or TXT documents.
+2. The appropriate document loader extracts the document contents.
+3. The extracted text is divided into smaller chunks using a Recursive Character Text Splitter.
+4. Each chunk is converted into vector embeddings using a Hugging Face Sentence Transformer model.
+5. The embeddings are stored and indexed in ChromaDB.
+6. The user submits a natural language query.
+7. The retriever performs semantic similarity search to identify the most relevant document chunks.
+8. Retrieved context and the user's question are combined into a prompt.
+9. The configured Large Language Model generates a context-aware answer along with source references.
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/Multi-Document-AI-Knowledge-Assistant.git
+cd Multi-Document-AI-Knowledge-Assistant
+```
+
+Create a virtual environment:
+
+### Windows
+
+```bash
 python -m venv .venv
-source .venv/bin/activate   # or .venv\Scripts\activate on Windows
+.venv\Scripts\activate
+```
+
+### Linux/macOS
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the project root.
+
+Example:
+
+```env
+GROQ_API_KEY=your_api_key
+OPENAI_API_KEY=your_api_key
+HUGGINGFACEHUB_API_TOKEN=your_api_key
+```
+
+Only the API key required by the LLM configured in `model.py` is necessary. The Hugging Face embedding model runs locally and does not require an API key.
+
+---
+
+## Running the Application
+
+```bash
 python main.py
+```
 
-The app uses python-dotenv (load_dotenv()), so add a .env file in the repo root if your LLM/provider requires API keys (e.g., HUGGINGFACE_HUB_TOKEN, OPENAI_API_KEY). The code uses a local Hugging Face sentence-transformers model for embeddings (sentence-transformers/all-MiniLM-L6-v2), and Chroma for the vector DB; a remote LLM provider may still require provider keys in model.py.
+When prompted:
 
-When running, the CLI prompts "Enter your Path" — give a path to a .pdf, .txt, or .docx document.
+```text
+Enter your Path:
+```
 
+Provide the path to a supported document.
+
+Example:
+
+```text
+documents/SAP_APO.pdf
+```
+
+---
+
+## Example Questions
+
+- What is SAP APO?
+- Summarize the uploaded document.
+- Explain the Planning Area concept.
+- Compare the uploaded documents.
+- List the key concepts discussed in the document.
+- Which LLM backend is configured in the application?
+
+---
+
+## Future Enhancements
+
+- Streamlit web interface
+- Persistent Chroma storage
+- Folder-based document ingestion
+- Multiple document upload
+- Chat history
+- Metadata filtering
+- Hybrid search
+- Cross-encoder reranking
+- Multi-LLM support
+- REST API using FastAPI
+- Document comparison
+- Citation highlighting
+
+---
+
+## Learning Outcomes
+
+This project demonstrates practical implementation of:
+
+- Retrieval-Augmented Generation (RAG)
+- LangChain
+- Document preprocessing
+- Text chunking
+- Embedding generation
+- Semantic search
+- Vector databases
+- Prompt engineering
+- Large Language Model integration
+- Modular software architecture
+
+---
+
+## License
+
+This project is intended for educational purposes and can be modified or extended for learning and personal use.
