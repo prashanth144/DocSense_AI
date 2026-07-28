@@ -22,7 +22,7 @@ retriver=get_retrievers(vectors)
 llm_model=get_model()
 prompt=get_prompt()
 
-# Chat Loop
+
 while True:
 
     text = input("Enter your query: ")
