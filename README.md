@@ -1,19 +1,24 @@
 # DocScense_AI
-What this is
+
 A Python-based multi-document AI knowledge assistant that ingests PDFs/TXT/DOCX, splits and embeds their text, stores embeddings in a Chroma vector store, and answers user queries with source-aware context (chat-style Q&A with document citations). Built for exploratory question answering over collections of documents — useful for knowledge-base search, research assistants, and document comparison.
 
 Built a Python document-QA assistant using LangChain, HuggingFace sentence-transformers, and Chroma to ingest, chunk, embed, and retrieve multi-document context for LLM-backed question answering with source citations.
 
-# Stack
-Language(s): Python (100%)
+**Stack**
+Language: Python 
 
-Framework / runtime: Plain Python CLI (or small app); uses LangChain for orchestration
+Framework : LangChain 
 
-Notable libraries: langchain, langchain-huggingface / sentence-transformers, chromadb / langchain-chroma, pypdf / python-docx, python-dotenv
+Libraries:  langchain
+            langchain-huggingface
+            sentence-transformers
+            langchain-chroma
+            pypdf ,python-docx
+            python-dotenv
 
-How it's organized
+**How it's organized**
 
-Code
+**Code**
 
 README.md                project summary
 requirements.txt         Python dependencies
@@ -29,17 +34,18 @@ model.py                 (wraps / invokes the LLM to generate answers)
 tests/                   test directory (empty / placeholder)
 PLANNING AREA.pdf        project plan / documentation asset
 text.txt                 example or test text
-How it fits together:
+
 
 main.py is the entry point: it asks for a path, uses loader_factory to load documents, text_splitter to chunk them, embedding.py to compute embeddings, vector_database.py to create a Chroma vector store, and retriever to fetch relevant chunks for a query. prompt_template builds the context+question prompt, and model.py sends it to an LLM to produce an answer which is printed to the console.
-How to run it
-Shortest path (from a fresh clone):
 
-Create and activate a virtualenv (recommended).
+**How to run it**
+
+Create and activate a virtual env (recommended).
 Install dependencies and run main.py.
-Example commands:
 
-Code
+**Example commands:**
+
+**Code**
 python -m venv .venv
 source .venv/bin/activate   # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
