@@ -6,10 +6,15 @@ Built a Python document-QA assistant using LangChain, HuggingFace sentence-trans
 
 # Stack
 Language(s): Python (100%)
+
 Framework / runtime: Plain Python CLI (or small app); uses LangChain for orchestration
+
 Notable libraries: langchain, langchain-huggingface / sentence-transformers, chromadb / langchain-chroma, pypdf / python-docx, python-dotenv
+
 How it's organized
+
 Code
+
 README.md                project summary
 requirements.txt         Python dependencies
 main.py                  orchestrates ingestion → embedding → retrieval → LLM answering (CLI loop)
