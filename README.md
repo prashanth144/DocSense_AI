@@ -1,6 +1,6 @@
 # DocSense_AI
 
-A lightweight Python-based Retrieval-Augmented Generation (RAG) application that ingests PDF, DOCX, and TXT documents, generates semantic embeddings using Hugging Face Sentence Transformers, stores them in a Chroma Vector Database, and enables context-aware question answering with source citations.
+A Python-based Retrieval-Augmented Generation (RAG) application that ingests PDF, DOCX, and TXT documents, generates semantic embeddings using Hugging Face Sentence Transformers, stores them in a Chroma Vector Database, and enables context-aware question answering with source citations.
 
 ---
 
@@ -232,26 +232,3 @@ documents/SAP_APO.pdf
 - REST API using FastAPI
 - Document comparison
 - Citation highlighting
-
----
-
-## Learning Outcomes
-
-This project demonstrates practical implementation of:
-
-- Retrieval-Augmented Generation (RAG)
-- LangChain
-- Document preprocessing
-- Text chunking
-- Embedding generation
-- Semantic search
-- Vector databases
-- Prompt engineering
-- Large Language Model integration
-- Modular software architecture
-
----
-
-## License
-
-This project is intended for educational purposes and can be modified or extended for learning and personal use.
